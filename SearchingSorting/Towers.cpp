@@ -19,7 +19,7 @@ using namespace std;
 const int MOD = 1e9 + 7;
 const int N = 1e6 + 10; // For sieve and precomputation
 
-// ---------- LOCAL RUN / ONLINE SUBMISSION SWITCH ----------
+// ---------- LOCAL RUN / ONLINE SubMISSION SWITCH ----------
 #ifndef ONLINE_JUDGE
     #define debug(x) cerr << #x << " = " << x << "\n"
 #else
@@ -158,7 +158,19 @@ void clearBit(int &n, int i) {
     n &= ~(1LL << i);
 }
 void solve(){
-    
+    int n;
+    cin>>n;
+    vi v(n);
+    for(int i=0;i<n;i++)cin>>v[i];
+    multiset<int> topOftowers;
+    for(int i=0;i<n;i++){
+        auto ub=topOftowers.upper_bound(v[i]);
+        if(ub!=topOftowers.end()){
+            topOftowers.erase(ub);
+        }
+        topOftowers.insert(v[i]);
+    }
+    cout<<topOftowers.size()<<"\n";
 }
 int32_t main() {
     //---------------- LOCAL FILE REDIRECTION ----------------
@@ -170,8 +182,9 @@ int32_t main() {
 #endif
    // ---------------------------------------------------------
 
-    int t;cin>>t;
-    while(t--)solve();
+    // int t;cin>>t;
+    // while(t--)
+    solve();
 
     return 0;
 }

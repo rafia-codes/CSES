@@ -158,7 +158,18 @@ void clearBit(int &n, int i) {
     n &= ~(1LL << i);
 }
 void solve(){
-    
+    int n;
+    cin>>n;
+    vi v(n);
+    for(int i=0;i<n;i++)cin>>v[i];
+    set<int> seen;
+    int i=0,j=0,maxi=1;
+    while(j<n){
+        while(seen.count(v[j]))seen.erase(v[i++]);
+        maxi=max(maxi,j-i+1);
+        seen.insert(v[j]);j++;
+    }
+    cout<<maxi<<"\n";
 }
 int32_t main() {
     //---------------- LOCAL FILE REDIRECTION ----------------
@@ -170,8 +181,9 @@ int32_t main() {
 #endif
    // ---------------------------------------------------------
 
-    int t;cin>>t;
-    while(t--)solve();
+    // int t;cin>>t;
+    // while(t--)
+    solve();
 
     return 0;
 }

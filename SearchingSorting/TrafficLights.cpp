@@ -19,7 +19,7 @@ using namespace std;
 const int MOD = 1e9 + 7;
 const int N = 1e6 + 10; // For sieve and precomputation
 
-// ---------- LOCAL RUN / ONLINE SUBMISSION SWITCH ----------
+// ---------- LOCAL RUN / ONLINE SubMISSION SWITCH ----------
 #ifndef ONLINE_JUDGE
     #define debug(x) cerr << #x << " = " << x << "\n"
 #else
@@ -158,7 +158,26 @@ void clearBit(int &n, int i) {
     n &= ~(1LL << i);
 }
 void solve(){
-    
+    int n,x;
+    cin>>x>>n;
+    vi v(n);
+    for(int i=0;i<n;i++)cin>>v[i];
+    set<int> traffic;
+    multiset<int> gap;
+    traffic.insert(0);
+    traffic.insert(x);
+    gap.insert(x);
+    for(int i=0;i<n;i++){
+        auto ub=traffic.upper_bound(v[i]);
+        auto lb=prev(ub);
+        gap.erase(gap.find(*ub-*lb));//to erase only one occurrence
+
+        traffic.insert(v[i]);
+        gap.insert(*ub-v[i]);
+        gap.insert(v[i]-*lb);
+        cout<<*prev(gap.end())<<" ";
+    }
+    cout<<"\n";
 }
 int32_t main() {
     //---------------- LOCAL FILE REDIRECTION ----------------
@@ -170,8 +189,9 @@ int32_t main() {
 #endif
    // ---------------------------------------------------------
 
-    int t;cin>>t;
-    while(t--)solve();
+    // int t;cin>>t;
+    // while(t--)
+    solve();
 
     return 0;
 }
